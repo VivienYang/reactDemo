@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react demo</title>
+    <style>
+        .red{
+            color: red;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <script type="text/babel">
+        function Box1(){
+            let number = 0
+
+            let add = ()=>{//点击+
+                number += 1
+                render()
+            }
+            let minus = ()=>{//点击-
+                number -= 1
+                render()
+            }
+            return (
+                <div className='parent'>
+                    <button onClick={minus}>-</button>
+                    <span className='red'>{number}</span>
+                    <button onClick={add}>+</button>
+                </div>
+            )     
+        }
+        function Box2(){
+            let number = 0
+            console.log(`pos1：number${number}`)
+
+            let add = ()=>{//点击+
+                number += 1
+                console.log(`pos2：number${number}`)
+                render()
+            }
+            let minus = ()=>{//点击-
+                number -= 1
+                render()
+            }
+            return (
+                <div className='parent'>
+                    <button onClick={minus}>-</button>
+                    <span className='red'>{number}</span>
+                    <button onClick={add}>+</button>
+                </div>
+            )     
+        }
+        function App(){
+            return (
+                <div>
+                    <Box1/>
+                    <Box2/>
+                </div>
+            )
+        }
+        render()
+        function render(){
+            ReactDOM.render(
+                <App/>,
+                document.querySelector('#root')
+            )             
+        }
+           
+    </script>
+</body>
+</html>
