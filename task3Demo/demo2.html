@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>龟兔赛跑1</title>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <style>
+        body{
+            padding: 0 100px;
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            text-align: center;
+        }
+        .trackWrapper{
+            height: 50px;
+            line-height: 50px;
+            background:cornflowerblue;
+            margin: 20px 0;
+        }
+        .trackWrapper .animal{
+            transform: translateX(0%);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // 龟兔赛跑1
+    function Judge(){
+        return(
+            <div>裁判</div>
+        )
+    }
+    function TimeRabit(){//兔子用时
+        return(
+            <div>
+                <h2>🐇用时</h2>
+                <div>0</div>
+            </div>
+        )
+    }
+    function TimeTortoise(){//乌龟用时
+        return(
+            <div>
+                <h2>🐢用时</h2>
+                <div>0</div>
+            </div>
+        )
+    }
+    function TrackRabit(){//兔子的跑道
+        return(
+            <div class="trackWrapper">
+                <div class="animal">🐇</div>
+                <div class="track"></div>                
+            </div>
+        )
+    }
+    function TrackTortoise(){//乌龟的跑道
+        return(
+            <div class="trackWrapper">
+                <div class="animal">🐢</div>
+                <div class="track"></div>                
+            </div>
+        )
+    }
+    function App(){
+        return(
+            <div>
+                <div class="header">
+                    <TimeRabit />
+                    <Judge />
+                    <TimeTortoise />
+                </div>
+                <TrackRabit />
+                <TrackTortoise />
+            </div>
+        )
+    }
+    ReactDOM.render(<App />,document.getElementById('root'))
+    </script>
+</body>
+</html>
