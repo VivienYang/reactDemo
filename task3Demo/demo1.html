@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react demo</title>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // 复习前面的知识
+    function App(){//react 函数组件
+        return(
+            <h1>hi</h1>
+        )
+    }
+    class App2 extends React.Component{//react class组件
+        render(){
+            return(
+                <h2>hi 2</h2>
+            )
+        }
+    }
+    ReactDOM.render(<App2 />,document.getElementById('root'))
+    </script>
+</body>
+</html>
