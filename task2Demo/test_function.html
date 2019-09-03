@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react demo</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <script type="text/babel">
+        // 写一个 React 函数组件，要求：
+        // 接受 name 和 age 作为 props
+        // 在 div 里展示 name 和 age
+        function Box(props) {
+            return (
+                <div className="parent">
+                    <p>name:{props.name}</p>
+                    <p>age:{props.age}</p>
+                </div>
+            )
+        }
+        function App(){
+            return (
+                <div>
+                    <Box name="Vivien" age="18"/>
+                </div>
+            )
+        }
+        ReactDOM.render(<App/>,document.querySelector('#root'))               
+    </script>
+</body>
+</html>
