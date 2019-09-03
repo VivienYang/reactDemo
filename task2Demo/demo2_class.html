@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>react demo</title>
     <style>
+        .parent > span{
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+        }
         .red{
             color: red;
             padding: 0 10px;
@@ -19,8 +24,8 @@
     <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
     <script type="text/babel">
         class Box1 extends React.Component{
-            constructor(){
-                super()
+            constructor(props){
+                super(props)
                 this.state = {
                     number:0
                 }
@@ -31,7 +36,6 @@
                 })
             }
             minus(){
-                console.log(this)
                 this.setState({
                     number:this.state.number-1
                 })
@@ -39,6 +43,7 @@
             render(){
                 return (
                     <div className='parent'>
+                        <span>{this.props.name}</span>
                         <button onClick={this.minus.bind(this)}>-</button>
                         <span className='red'>{this.state.number}</span>
                         <button onClick={this.add.bind(this)}>+</button>
@@ -47,8 +52,8 @@
             }
         }
         class Box2 extends React.Component{
-            constructor(){
-                super()
+            constructor(props){
+                super(props)
                 this.state = {
                     number:0
                 }
@@ -59,7 +64,6 @@
                 })
             }
             minus(){
-                console.log(this)
                 this.setState({
                     number:this.state.number-2
                 })
@@ -67,6 +71,7 @@
             render(){
                 return (
                     <div className='parent'>
+                        <span>{this.props.name}</span>
                         <button onClick={this.minus.bind(this)}>-</button>
                         <span className='red'>{this.state.number}</span>
                         <button onClick={this.add.bind(this)}>+</button>
@@ -77,18 +82,17 @@
         function App(){
             return (
                 <div>
-                    <Box1/>
-                    <Box2/>
+                    <Box1 name="Vivien"/>
+                    <Box2 name="Lily"/>
                 </div>
             )
         }
-        render()
-        function render(){
-            ReactDOM.render(
-                <App/>,
-                document.querySelector('#root')
-            )             
-        }
+        ReactDOM.render(
+            <App/>,
+            document.querySelector('#root')
+        )             
+
+
            
     </script>
 </body>
