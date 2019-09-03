@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>龟兔赛跑2</title>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <style>
+        body{
+            padding: 0 100px;
+            overflow: hidden;
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            text-align: center;
+        }
+        .trackWrapper{
+            height: 50px;
+            line-height: 50px;
+            background:cornflowerblue;
+            margin: 20px 0;
+        }
+        .trackWrapper .animal{
+            /* transition: all 1s linear; */
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // 龟兔赛跑2
+    function TimeRabit(props){//兔子用时
+        return(
+            <div>
+                <h2>🐇用时</h2>
+                <div>{props.result}</div>
+            </div>
+        )
+    }
+    function TimeTortoise(props){//乌龟用时
+        return(
+            <div>
+                <h2>🐢用时</h2>
+                <div>{props.result}</div>
+            </div>
+        )
+    }
+    class TrackRabit extends React.Component{
+        constructor(){
+            super()
+            let n=0
+            this.state={
+                animalStyle:{
+                    transform: `translateX(${n}%)`
+                }
+            }
+            let runInt = setInterval(() => {
+                n+=25
+                this.setState({
+                    animalStyle:{
+                        transform: `translateX(${n}%)`
+                    }
+                })
+                if(n >= 100){
+                    //跑到终点，关掉定时器
+                    clearInterval(runInt)
+                    //跑到终点，通知父组件
+                    this.props.success('我是小兔子')
+                }
+            }, 1000);
+        }
+        render(){
+            return(
+                <div class="trackWrapper">
+                    <div class="animal" style={this.state.animalStyle}>🐇</div>
+                    <div class="track"></div>                
+                </div>
+            )
+        }
+    }
+    class TrackTortoise extends React.Component{
+        constructor(){
+            super()
+            let n=0
+            this.state={
+                animalStyle:{
+                    transform:`translateX(${n}%)`
+                }
+            }
+            let runInt=setInterval(() => {
+                n+=20
+                this.setState({
+                    animalStyle:{
+                        transform:`translateX(${n}%)`
+                    }
+                })
+                if(n>=100){
+                    //跑到终点，关掉定时器
+                    clearInterval(runInt)
+                    //跑到终点，通知父组件
+                    this.props.success('我是小乌龟')
+                }
+            }, 1000);
+        }
+        render(){
+            return(
+                <div class="trackWrapper">
+                    <div class="animal" style={this.state.animalStyle}>🐢</div>
+                    <div class="track"></div>                
+                </div>
+            )
+        }
+    }
+    class App extends React.Component{
+        constructor(){
+            super()
+            this.state={
+                result1:0,
+                result2:0
+            }
+            this.start=new Date()
+        }
+        successRabit(x){
+            console.log(x)
+            let time = new Date() - this.start
+            console.log(`兔子跑到了终点，用时${time}ms`)
+        }
+        successTortoise(x){
+            console.log(x)
+            let time = new Date() - this.start
+            console.log(`乌龟跑到了终点，用时${time}ms`)
+        }
+        render(){
+            return(
+                <div>
+                    <div class="header">
+                        <TimeRabit result={this.state.result1}/>
+                        <TimeTortoise result={this.state.result2}/>
+                    </div>
+                    <TrackRabit success={this.successRabit.bind(this)}/>
+                    <TrackTortoise success={this.successTortoise.bind(this)}/>
+                </div>
+            )            
+        }
+    }
+    ReactDOM.render(<App />,document.getElementById('root'))
+    </script>
+</body>
+</html>
