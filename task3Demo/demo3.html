@@ -126,14 +126,26 @@
             this.start=new Date()
         }
         successRabit(x){
+            //兔子跑到终点，子组件TrackRabit通知父组件后，
+            //父组件计算用时，更新result1的state
+            //result1改变，通过props传递给子组件TimeRabit，显示兔子比赛用时
             console.log(x)
             let time = new Date() - this.start
             console.log(`兔子跑到了终点，用时${time}ms`)
+            this.setState({
+                result1:time
+            })
         }
         successTortoise(x){
+            //乌龟跑到终点，子组件TrackTortoise通知父组件后，
+            //父组件计算用时，更新result2的state
+            //result2改变，通过props传递给子组件TimeTortoise，显示乌龟比赛用时
             console.log(x)
             let time = new Date() - this.start
             console.log(`乌龟跑到了终点，用时${time}ms`)
+            this.setState({
+                result2:time
+            })
         }
         render(){
             return(
