@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <title>回顾</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component{
+            constructor(){
+                super()
+                this.state={
+                    message:'你好'
+                }
+            }
+            changeMessage(){
+                console.log('click')
+                this.setState({
+                    message:'你真好'
+                })
+            }
+            render(){
+                return (
+                    <Foo message={this.state.message} fn={this.changeMessage.bind(this)} />
+                )
+            }
+        }
+        function Foo(props){
+            return(
+                <div class="Foo">
+                    <p>我得到的message是{props.message}</p>
+                    <button onClick={props.fn}>改变message的值</button>
+                </div>
+            )
+        }
+        ReactDOM.render(<App />,document.getElementById('root'))
+    </script>
+</body>
+</html>
