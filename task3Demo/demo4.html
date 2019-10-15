@@ -154,11 +154,19 @@
                         <TimeRabit result={this.state.result1}/>
                         <TimeTortoise result={this.state.result2}/>
                     </div>
-                    <TrackRabit success={this.successRabit.bind(this)}/>
-                    <TrackTortoise success={this.successTortoise.bind(this)}/>
+                    <PlayGround successRabit={this.successRabit.bind(this)} successTortoise={this.successTortoise.bind(this)}/>
+                    
                 </div>
             )            
         }
+    }
+    function PlayGround(props){
+        return(
+            <div class="playGround">
+                <TrackRabit success={props.successRabit}/>
+                <TrackTortoise success={props.successTortoise}/>
+            </div>
+        )
     }
     ReactDOM.render(<App />,document.getElementById('root'))
     </script>
