@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <title>不使用EventHub，通过父子通信props来实现</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .app{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000000;
+            padding: 30px;
+        }
+        .papa{
+            padding: 30px;
+            border: 1px solid grey;
+            margin: 5px;
+        }
+        .son{
+            padding: 30px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    let money = {
+        amount:10000
+    }
+    class App extends React.Component{
+        constructor(){
+            super()
+            this.state={
+                money:money
+            }
+        }
+        consume(data){
+            console.log(`消费了${data}`)
+            let money=this.state.money
+            money.amount=money.amount-data
+            this.setState({
+                money:money
+            })
+        }
+        render(){
+            return (
+                <div className="app">
+                    <BigPapa money={this.state.money} consume={this.consume.bind(this)} />
+                    <YongPapa money={this.state.money} consume={this.consume.bind(this)} />
+                </div>
+            )
+        }
+    }
+    class BigPapa extends React.Component{
+        constructor(){
+            super()
+        }
+        render(){
+            return(
+                <div className="papa">
+                    大爸{this.props.money.amount}
+                    <Son1 money={this.props.money} consume={this.props.consume}/>
+                    <Son2 money={this.props.money} consume={this.props.consume}/>
+                </div>
+            )
+        }
+    }
+    class YongPapa extends React.Component{
+        constructor(){
+            super()
+        }
+        render(){
+            return(
+                <div className="papa">
+                    二爸{this.props.money.amount}
+                    <Son3 money={this.props.money} consume={this.props.consume}/>
+                    <Son4 money={this.props.money} consume={this.props.consume}/>
+                </div>
+            )
+        }
+    }
+    class Son1 extends React.Component{
+        constructor(){
+            super()
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子1：{this.props.money.amount}
+                </div>
+            )
+        }
+    }
+    class Son2 extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('xxxx')
+            console.log(this.props)
+            this.props.consume(100)
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子2：{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                </div>
+            )
+        }
+    }
+    class Son3 extends React.Component{
+        constructor(){
+            super()
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子3：{this.props.money.amount}
+                </div>
+            )
+        }
+    }
+    class Son4 extends React.Component{
+        constructor(){
+            super()
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子4：{this.props.money.amount}
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<App />,document.getElementById('root'))
+    </script>
+</body>
+</html>
