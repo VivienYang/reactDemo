@@ -42,6 +42,37 @@
     let money = {
         amount:10000
     }
+    let fnLists = {}
+    let eventHub={
+        on(eventName,fn){
+            let fnList = fnLists[eventName]
+            console.log(fnList)
+            if(!fnList){
+                fnLists[eventName]=[]
+            }
+            fnLists[eventName].push(fn)
+        },
+        trigger(eventName,data){
+            let fnList = fnLists[eventName]
+            console.log(fnList)
+            for(let i=0;i<fnList.length;i++){
+                fnList[i](data)
+            }
+        }
+    }
+    console.log(fnLists)
+    eventHub.on('我要花钱',function(data) {
+        console.log('我要花钱1')
+        money.amount -= data
+        console.log(money)
+    })
+    eventHub.on('我要花钱',function(data) {
+        console.log('我要花钱2')
+        money.amount -= data
+        console.log(money)
+    })
+    console.log(fnLists)
+    eventHub.trigger('我要花钱',10)
     class App extends React.Component{
         constructor(){
             super()
