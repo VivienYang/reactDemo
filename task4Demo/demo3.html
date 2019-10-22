@@ -60,19 +60,17 @@
             }
         }
     }
-    console.log(fnLists)
-    eventHub.on('我要花钱',function(data) {
-        console.log('我要花钱1')
-        money.amount -= data
-        console.log(money)
-    })
-    eventHub.on('我要花钱',function(data) {
-        console.log('我要花钱2')
-        money.amount -= data
-        console.log(money)
-    })
-    console.log(fnLists)
-    eventHub.trigger('我要花钱',10)
+    // eventHub.on('我花钱了',function(data) {
+    //     console.log('我花钱了1')
+    //     money.amount -= data
+    //     console.log(money)
+    // })
+    // eventHub.on('我花钱了',function(data) {
+    //     console.log('我花钱了2')
+    //     money.amount -= data
+    //     console.log(money)
+    // })
+    // eventHub.trigger('我花钱了',10)
     class App extends React.Component{
         constructor(){
             super()
@@ -91,8 +89,8 @@
         render(){
             return (
                 <div className="app">
-                    <BigPapa money={this.state.money} consume={this.consume.bind(this)} />
-                    <YongPapa money={this.state.money} consume={this.consume.bind(this)} />
+                    <BigPapa />
+                    <YongPapa />
                 </div>
             )
         }
@@ -100,13 +98,16 @@
     class BigPapa extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
         }
         render(){
             return(
                 <div className="papa">
-                    大爸{this.props.money.amount}
-                    <Son1 money={this.props.money} consume={this.props.consume}/>
-                    <Son2 money={this.props.money} consume={this.props.consume}/>
+                    大爸{this.state.money.amount}
+                    <Son1 />
+                    <Son2 />
                 </div>
             )
         }
@@ -114,13 +115,16 @@
     class YongPapa extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
         }
         render(){
             return(
                 <div className="papa">
-                    二爸{this.props.money.amount}
-                    <Son3 money={this.props.money} consume={this.props.consume}/>
-                    <Son4 money={this.props.money} consume={this.props.consume}/>
+                    二爸{this.state.money.amount}
+                    <Son3 />
+                    <Son4 />
                 </div>
             )
         }
@@ -128,16 +132,26 @@
     class Son1 extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了son1')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
         }
         x(){
-            console.log('xxxx')
-            console.log(this.props)
-            this.props.consume(100)
+            console.log('trigger我花钱了son1')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="son">
-                    儿子1：{this.props.money.amount}
+                    儿子1：{this.state.money.amount}
                     <button onClick={this.x.bind(this)}>消费</button>
                 </div>
             )
@@ -146,16 +160,26 @@
     class Son2 extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了son2')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
         }
         x(){
-            console.log('xxxx')
-            console.log(this.props)
-            this.props.consume(100)
+            console.log('trigger我花钱了son2')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="son">
-                    儿子2：{this.props.money.amount}
+                    儿子2：{this.state.money.amount}
                     <button onClick={this.x.bind(this)}>消费</button>
                 </div>
             )
@@ -164,16 +188,26 @@
     class Son3 extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了son3')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
         }
         x(){
-            console.log('xxxx')
-            console.log(this.props)
-            this.props.consume(100)
+            console.log('trigger我花钱了son3')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="son">
-                    儿子3：{this.props.money.amount}
+                    儿子3：{this.state.money.amount}
                     <button onClick={this.x.bind(this)}>消费</button>
                 </div>
             )
@@ -182,16 +216,26 @@
     class Son4 extends React.Component{
         constructor(){
             super()
+            this.state={
+                money:money
+            }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了son4')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
         }
         x(){
-            console.log('xxxx')
-            console.log(this.props)
-            this.props.consume(100)
+            console.log('trigger我花钱了son4')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="son">
-                    儿子4：{this.props.money.amount}
+                    儿子4：{this.state.money.amount}
                     <button onClick={this.x.bind(this)}>消费</button>
                 </div>
             )
