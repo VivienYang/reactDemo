@@ -101,11 +101,24 @@
             this.state={
                 money:money
             }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了bigPapa')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
+        }
+        x(){
+            console.log('trigger我花钱了bigPapa')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="papa">
                     大爸{this.state.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
                     <Son1 />
                     <Son2 />
                 </div>
@@ -118,11 +131,24 @@
             this.state={
                 money:money
             }
+            eventHub.on('我花钱了',(data) => {//订阅‘我花钱了’事件，更新state
+                console.log('on我花钱了yongPapa')
+                console.log(money)
+                this.setState({
+                    money:money
+                })
+            })
+        }
+        x(){
+            console.log('trigger我花钱了yongPapa')
+            money.amount -= 100
+            eventHub.trigger('我花钱了',100)//发布‘我花钱了’事件，通知各个组件money金额变化了
         }
         render(){
             return(
                 <div className="papa">
                     二爸{this.state.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
                     <Son3 />
                     <Son4 />
                 </div>
