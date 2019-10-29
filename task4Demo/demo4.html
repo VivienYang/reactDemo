@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+    <title>使用eventHub来实现，引入管家</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        #root{
+            width: 100%;
+        }
+        .app{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000000;
+            padding: 30px;
+        }
+        .papa{
+            padding: 30px;
+            border: 1px solid grey;
+            margin: 5px;
+        }
+        .son{
+            padding: 30px;
+            width:200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    let money = {
+        amount:10000
+    }
+    let fnLists = {}
+    let eventHub={
+        on(eventName,fn){
+            let fnList = fnLists[eventName]
+            console.log(fnList)
+            if(!fnList){
+                fnLists[eventName]=[]
+            }
+            fnLists[eventName].push(fn)
+        },
+        trigger(eventName,data){
+            let fnList = fnLists[eventName]
+            console.log(fnList)
+            for(let i=0;i<fnList.length;i++){
+                fnList[i](data)
+            }
+        }
+    }
+    var manager = {
+        init(){
+            eventHub.on('我想花钱',function(num) {
+                money.amount -= num
+                render()
+            })            
+        }
+    }
+    manager.init()
+    class App extends React.Component{
+        constructor(){
+            super()
+            this.state={
+                money:money
+            }
+        }
+        render(){
+            return (
+                <div className="app">
+                    <BigPapa money={this.state.money}/>
+                    <YongPapa money={this.state.money}/>
+                </div>
+            )
+        }
+    }
+    class BigPapa extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱bigPapa')
+            eventHub.trigger('我想花钱',100)//发布‘我想花钱’事件，通知各个组件money金额变化了
+        }
+        render(){
+            return(
+                <div className="papa">
+                    大爸{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                    <Son1 money={this.props.money}/>
+                    <Son2 money={this.props.money}/>
+                </div>
+            )
+        }
+    }
+    class YongPapa extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱yongPapa')
+            eventHub.trigger('我想花钱',100)//发布‘我想花钱’事件，通知各个组件money金额变化了
+        }
+        render(){
+            return(
+                <div className="papa">
+                    二爸{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                    <Son3 money={this.props.money}/>
+                    <Son4 money={this.props.money}/>
+                </div>
+            )
+        }
+    }
+    class Son1 extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱son1')
+            eventHub.trigger('我想花钱',100)
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子1：{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                </div>
+            )
+        }
+    }
+    class Son2 extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱son2')
+            eventHub.trigger('我想花钱',100)
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子2：{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                </div>
+            )
+        }
+    }
+    class Son3 extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱son3')
+            eventHub.trigger('我想花钱',100)
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子3：{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                </div>
+            )
+        }
+    }
+    class Son4 extends React.Component{
+        constructor(){
+            super()
+        }
+        x(){
+            console.log('trigger我想花钱son4')
+            eventHub.trigger('我想花钱',100)
+        }
+        render(){
+            return(
+                <div className="son">
+                    儿子4：{this.props.money.amount}
+                    <button onClick={this.x.bind(this)}>消费</button>
+                </div>
+            )
+        }
+    }
+    function render(){
+        ReactDOM.render(<App />,document.getElementById('root'))        
+    }
+    render()
+    </script>
+</body>
+</html>

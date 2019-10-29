@@ -5,3 +5,4 @@
 
 * demo2.html 用props使用父子组件通信来实现
 * demo3.html 使用eventHub来实现，没有引入管家，先斩后奏
+* demo3.html 使用eventHub来实现，引入管家，由管家来统一处理数据变化和重新render
