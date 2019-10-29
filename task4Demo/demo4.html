@@ -63,9 +63,9 @@
     var manager = {
         init(){
             eventHub.on('我想花钱',function(num) {
-                console.log(`管家处理我想花钱请求前money${money}`)
+                console.log(`管家处理我想花钱请求前money.amount:${money.amount}`)
                 money.amount -= num
-                console.log(`管家处理我想花钱请求后money${money}`)
+                console.log(`管家处理我想花钱请求后money.amount:${money.amount}`)
                 render()
             })            
         }
